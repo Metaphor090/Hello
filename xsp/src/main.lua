@@ -439,6 +439,7 @@ if main_func_glo == 12 then
 		if do_ret == 1 then --自然回体返回
 			edit1_glo = edit1_glo + 1
 		end
+		CurrentDoTime = CurrentDoTime + 1
 	end
 
 end

@@ -28,7 +28,8 @@ All_Cancel_point = {}
 Active_Gift_point = {}
 --剧情模式标志
 PreGray = 0
-
+--当前执行次数
+CurrentDoTime = 1
 --活动道具激活点击819,663
 EventOSPoint = {819,663}
 
@@ -65,6 +66,8 @@ Room_Point = {884,180}
 NextRommPoint = {941,440}
 --连续出战坐标点
 GoonFight = {830,564}
+--取消连续出战
+CancelFight = {427,565}
 --气槽检测位置
 Gas_Site = {{155,79},{396,80},{635,79}}
 

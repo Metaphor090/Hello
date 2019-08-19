@@ -770,9 +770,14 @@ function invoking.Check_Battle_Over(SkipMode)
 					end
 				end
 				--dialog("连续作战点击")
-				if SkipMode == true  then
+				if SkipMode == true then
 					Tools.mSleep_level(2000,level)
-					Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
+					if  CurrentDoTime < edit1_glo then
+						Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
+					else
+						Tools.Source_Single_Click(CancelFight[1],CancelFight[2])
+						return 1
+					end
 					--判断是否需要补充ap
 					Tools.mSleep_level(2000,level)
 					CheckRet = lowfunction.MultInterfaceCheck()

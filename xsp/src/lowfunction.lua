@@ -1986,6 +1986,20 @@ function lowfunction.Resolution_profile(true_width,true_height)
 	
 	end
 	
+	--特殊分辨率 2312x1080
+	if tostring(true_width/true_height) == '2.1407407407407' then
+		sysLog("当前调用的是20.7：10的方案1")
+		Act_Env = {  
+		Top = 0,Sub =0,Left =195 ,Right = 195,
+		Width = true_width,
+		Height = true_height
+		} 
+		
+		profile_flag = 1
+	end
+	
+	
+	
 	--特殊分辨率 2316x1080
 	if tostring(true_width/true_height) == '2.1444444444444' then
 		sysLog("当前调用的是20.7：10的方案")
