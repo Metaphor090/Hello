@@ -100,9 +100,9 @@ CheckFriendsTable = {
 	
 	Anchor="Middle",MainPoint={x=37,y=45},
 	Area={0, 0, 1279, 719},
-	{x=342,y=76,color=0x025ca7,offset=0x202020},
-	{x=476,y=366,color=0xdcecf5,offset=0x202020},
-	{x=851,y=612,color=0xd5d5d5,offset=0x202020}
+	{x=342,y=76,color=0x025ca7,offset=0x101010},
+	{x=476,y=366,color=0xdcecf5,offset=0x101010},
+	{x=851,y=612,color=0xd5d5d5,offset=0x101010}
 
 }
 

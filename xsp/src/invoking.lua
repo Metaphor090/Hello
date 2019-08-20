@@ -724,7 +724,7 @@ function invoking.Check_Battle_Over(SkipMode)
 				--Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
 				while true do
 					Movie_confirm_ret = lowfunction.Movie_confirm()
-					if Movie_confirm_ret == 1 and MoviePassFlag = 1 then
+					if Movie_confirm_ret == 1 and MoviePassFlag == 1 then
 						--检测到就点击跳过
 						Tools.mSleep_level(1000,level)
 						Tools.Source_Single_Click(Movie_flag.point[1],Movie_flag.point[2])
@@ -745,7 +745,7 @@ function invoking.Check_Battle_Over(SkipMode)
 				end
 				
 				while true do 
-					if lowfunction.CheckFriend() and CheckFriendPassFlag = 1 then
+					if lowfunction.CheckFriend() and CheckFriendPassFlag == 1 then
 						--申请好友界面 根据选项AddFriendsGlo
 						if AddFriendsGlo == 0 then
 							--点否RefusedFriendPoint

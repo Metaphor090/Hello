@@ -2737,20 +2737,18 @@ end
 function lowfunction.CheckFriend()
 	--CheckFriendsTable
 	
-	local ret = Tools.Single_FindColor(true,CheckFriendsTable)
-
-	if ret== true then
-		result = true
-		sysLog("【申请好友界面】")
-		--dialog("【申请好友界面】")
+	Ret = lowfunction.MultInterfaceFriendAndMain()
+     
+    
+	if Ret == 2 then
+		nLog("【未进入申请好友界面】")
+		return false
 	else
-		result = false
-		sysLog("【未进入申请好友界面】")
-		--dialog("【未进入申请好友界面】")
+		nLog("【进入申请好友界面】")
+		return true
 	end
 	
-	
-	return result 
+
 end
 
 
@@ -2890,6 +2888,34 @@ function lowfunction.MultInterfaceCheck()
 			sysLog("助战界面")
 			return "Hleper"
 		end
+		return false
+	end
+
+end
+
+
+function lowfunction.MultInterfaceFriendAndMain()
+	--两个界面的基准色
+	FriendBaseColorStr = 6123398
+	MainBaseColorStr = 14013653
+	MultInterfaceCheckPoint = {65,39}
+	
+	
+	BaseColorStr = Tools.Single_ColorStr(true,MultInterfaceCheckPoint[1],MultInterfaceCheckPoint[2])
+	
+	--进行比对
+	FriendDiff = math.abs(BaseColorStr-FriendBaseColorStr)
+	MainDiff = math.abs(BaseColorStr-MainBaseColorStr)
+	sysLog("BaseColorStr:"..tostring(BaseColorStr)..",".."FriendDiff:"..tostring(FriendDiff)..",".."MainDiff:"..tostring(MainDiff))
+	if  MainDiff< 1000000 and FriendDiff > MainDiff then --助战偏大说明是ap界面
+		sysLog("主界面")
+		return 2
+	elseif FriendDiff < 1000000 and FriendDiff < MainDiff then --AP偏大 说明是助战
+		sysLog("好友界面")
+		return 1
+	else
+		
+		
 		return false
 	end
 
