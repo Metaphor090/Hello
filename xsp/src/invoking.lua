@@ -712,7 +712,7 @@ function invoking.Check_Battle_Over(SkipMode)
 	local MovieFlag = 0
 	local BattleOffFlag = 0
 	while true do
-		Tools.mSleep_level(4000,level)
+		Tools.mSleep_level(1000,level)
 		-- 动画等待完毕 检测是否结束战斗
 		--lowfunction.Battle_Over()
 		BattleOffFlag = lowfunction.NewBattleOver()

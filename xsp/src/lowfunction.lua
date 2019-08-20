@@ -2741,10 +2741,10 @@ function lowfunction.CheckFriend()
      
     
 	if Ret == 2 then
-		nLog("【未进入申请好友界面】")
+		sysLog("【未进入申请好友界面】")
 		return false
 	else
-		nLog("【进入申请好友界面】")
+		sysLog("【进入申请好友界面】")
 		return true
 	end
 	
