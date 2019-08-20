@@ -709,6 +709,7 @@ function invoking.Check_Battle_Over(SkipMode)
 	local MoviePassFlag = 1
 	local CheckFriendPassFlag = 1
 	local CheckSum = 0
+	local MovieFlag = 0
 	local BattleOffFlag = 0
 	while true do
 		Tools.mSleep_level(4000,level)
@@ -728,34 +729,53 @@ function invoking.Check_Battle_Over(SkipMode)
 						Tools.mSleep_level(1000,level)
 						Tools.Source_Single_Click(Movie_flag.point[1],Movie_flag.point[2])
 						Tools.mSleep_level(1000,level)
-						
 						Tools.Source_Single_Click(Moive_confirm_point[1],Moive_confirm_point[2])
 						MoviePassFlag = 0
 						Tools.mSleep_level(3000,level)
-					elseif lowfunction.CheckFriend() and CheckFriendPassFlag = 1 then
-							--申请好友界面 根据选项AddFriendsGlo
-							if AddFriendsGlo == 0 then
-								--点否RefusedFriendPoint
-								Tools.mSleep_level(1000,level)
-								Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
-							else
-								--点是
-								Tools.mSleep_level(1000,level)
-								Tools.Source_Single_Click(AddFriendPoint[1][1],AddFriendPoint[1][2])
-								Tools.mSleep_level(1000,level)
-								Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
-							end
-							CheckFriendPassFlag = 0
-							Tools.mSleep_level(3000,level)
-					else-- 检测到战斗结束，这里要一直拖到出主界面才 关闭脚本
-						ret = lowfunction.Main_Page_confirm()
-				
-						if ret == 1 then
-							return 1
+						break
+					else
+						Tools.mSleep_level(1000,level)
+						
+						if MovieFlag > 5 then
+							break
 						end
+						
+						MovieFlag = MovieFlag + 1
+					end
+				end
+				
+				while true do 
+					if lowfunction.CheckFriend() and CheckFriendPassFlag = 1 then
+						--申请好友界面 根据选项AddFriendsGlo
+						if AddFriendsGlo == 0 then
+							--点否RefusedFriendPoint
+							Tools.mSleep_level(1000,level)
+							Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
+						else
+							--点是
+							Tools.mSleep_level(1000,level)
+							Tools.Source_Single_Click(AddFriendPoint[1][1],AddFriendPoint[1][2])
+							Tools.mSleep_level(1000,level)
+							Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
+						end
+						CheckFriendPassFlag = 0
+						Tools.mSleep_level(3000,level)
+						break
+					end
+				end
+				
+				while true do 
+					-- 检测到战斗结束，这里要一直拖到出主界面才 关闭脚本
+					ret = lowfunction.Main_Page_confirm()
+			
+					if ret == 1 then
+						return 1
 					end
 				
-				end
+				end		
+				
+					
+			
 			elseif ServerTypeGlo == 1  then  --日服
 				--连续出战之前检查是否需要加好友
 				if lowfunction.CheckFriend() then
