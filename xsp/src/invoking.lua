@@ -706,10 +706,12 @@ end
 
 		
 function invoking.Check_Battle_Over(SkipMode)
+	local MoviePassFlag = 1
+	
 	local CheckSum = 0
 	local BattleOffFlag = 0
 	while true do
-		Tools.mSleep_level(1000,level)
+		Tools.mSleep_level(4000,level)
 		-- 动画等待完毕 检测是否结束战斗
 		--lowfunction.Battle_Over()
 		BattleOffFlag = lowfunction.NewBattleOver()
@@ -721,16 +723,16 @@ function invoking.Check_Battle_Over(SkipMode)
 				--Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
 				while true do
 					Movie_confirm_ret = lowfunction.Movie_confirm()
-					if Movie_confirm_ret == 1 then
+					if Movie_confirm_ret == 1 and MoviePassFlag = 1 then
 						--检测到就点击跳过
 						Tools.mSleep_level(1000,level)
 						Tools.Source_Single_Click(Movie_flag.point[1],Movie_flag.point[2])
 						Tools.mSleep_level(1000,level)
 						
 						Tools.Source_Single_Click(Moive_confirm_point[1],Moive_confirm_point[2])
-						
-						
-					elseif lowfunction.CheckFriend() then
+						MoviePassFlag = 0
+						Tools.mSleep_level(3000,level)
+					elseif lowfunction.CheckFriend() and CheckFriendPassFlag = 1 then
 							--申请好友界面 根据选项AddFriendsGlo
 							if AddFriendsGlo == 0 then
 								--点否RefusedFriendPoint
@@ -743,7 +745,8 @@ function invoking.Check_Battle_Over(SkipMode)
 								Tools.mSleep_level(1000,level)
 								Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
 							end
-						
+							CheckFriendPassFlag = 0
+							Tools.mSleep_level(3000,level)
 					else-- 检测到战斗结束，这里要一直拖到出主界面才 关闭脚本
 						ret = lowfunction.Main_Page_confirm()
 				
