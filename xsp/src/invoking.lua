@@ -707,7 +707,7 @@ end
 		
 function invoking.Check_Battle_Over(SkipMode)
 	local MoviePassFlag = 1
-	
+	local CheckFriendPassFlag = 1
 	local CheckSum = 0
 	local BattleOffFlag = 0
 	while true do
