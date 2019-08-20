@@ -731,21 +731,7 @@ function invoking.Check_Battle_Over(SkipMode)
 						Tools.mSleep_level(1000,level)
 						Tools.Source_Single_Click(Moive_confirm_point[1],Moive_confirm_point[2])
 						MoviePassFlag = 0
-						Tools.mSleep_level(3000,level)
-						break
-					else
-						Tools.mSleep_level(1000,level)
-						
-						if MovieFlag > 5 then
-							break
-						end
-						
-						MovieFlag = MovieFlag + 1
-					end
-				end
-				
-				while true do 
-					if lowfunction.CheckFriend() and CheckFriendPassFlag == 1 then
+					elseif lowfunction.CheckFriend() and CheckFriendPassFlag == 1 then
 						--申请好友界面 根据选项AddFriendsGlo
 						if AddFriendsGlo == 0 then
 							--点否RefusedFriendPoint
@@ -759,22 +745,48 @@ function invoking.Check_Battle_Over(SkipMode)
 							Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
 						end
 						CheckFriendPassFlag = 0
-						Tools.mSleep_level(3000,level)
-						break
+					else
+						ret = lowfunction.Main_Page_confirm()
+						local MainFlag = 1
+						if ret == 1 then
+							--这里进行多次校验
+							Tools.mSleep_level(2000,level)
+							for i=1,3,1 do
+								ret = lowfunction.Main_Page_confirm()
+								if ret == 1 then
+									MainFlag = MainFlag + 1
+								end
+								
+							end
+							if MainFlag >= 4 then
+								return 1
+							else
+								Tools.mSleep_level(5000,level)
+								Tools.Source_Single_Click(AddFriendPoint[1][1],AddFriendPoint[1][2])
+								return 1
+							end
+							
+							
+						else
+							CheckSum = CheckSum + 1
+							if CheckSum > 20 then
+								nLog("获取主界面超时！")
+								
+								toast("获取主界面超时！",3)
+								ret = lowfunction.Main_Page_confirm()
+								if ret == 1 then
+									
+								else
+									--点击好友按钮RefusedFriendPoint
+									Tools.mSleep_level(1000,level)
+									Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
+								end
+								
+							end
+						end
+				
 					end
 				end
-				
-				while true do 
-					-- 检测到战斗结束，这里要一直拖到出主界面才 关闭脚本
-					ret = lowfunction.Main_Page_confirm()
-			
-					if ret == 1 then
-						return 1
-					end
-				
-				end		
-				
-					
 			
 			elseif ServerTypeGlo == 1  then  --日服
 				--连续出战之前检查是否需要加好友
