@@ -1912,7 +1912,7 @@ function lowfunction.Resolution_profile(true_width,true_height)
 			
 			--通用适配方案
 			Act_Env = {  
-			Top = 0,Sub =0,Left =119 ,Right = 119,
+			Top = 0,Sub =0,Left =179 ,Right = 179,
 			Width = true_width,
 			Height = true_height
 			} 
@@ -2741,10 +2741,10 @@ function lowfunction.CheckFriend()
      
     
 	if Ret == 2 then
-		sysLog("【未进入申请好友界面】")
+		nLog("【未进入申请好友界面】")
 		return false
 	else
-		sysLog("【进入申请好友界面】")
+		nLog("【进入申请好友界面】")
 		return true
 	end
 	
