@@ -1648,7 +1648,7 @@ Gift_name_table = {
 
 
 --=========================日服常驻礼装===================
-达芬奇lily = {
+贝娜丽莎 = {
 	Anchor="Middle",MainPoint={x=640,y=360},
 	Area={32,173,221,719},
 	{x=88,y=342,color=0xfefffb,offset=0x202020},

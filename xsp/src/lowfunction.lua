@@ -1306,7 +1306,7 @@ end
 --助战礼装数据库 代入编号 返回 礼装名
 --'纯洁绽放','阿尔托莉雅之星','巫女狐','化为红莲的影之国','正射必中'
 function lowfunction.Helper_Gift_database(gift_UI_no)
-	local gift_database = {'迦勒底午餐时光','圣夜晚餐','万华镜','达芬奇','宇宙棱镜','二零三零','天堂之孔','虚数魔术','黑杯','社交界之花','春风游步道','第六天魔王','日轮之城','壬生狼','帝都圣杯战争','坂本侦探事务所','研磨锐牙之暗剑','海滨奢华','白色航游','砂糖假期','小小夏日','迦勒底沙滩排球','Kingjokerjack','盛夏一刻','潜入湛蓝','达芬奇lily','迦勒底下午茶时光','夏日阎魔亭','紫之眼','迎宾兔女郎','死之艺术','毒蛇一艺','柔软的慈爱','迦勒底的学者'}
+	local gift_database = {'迦勒底午餐时光','圣夜晚餐','万华镜','达芬奇','宇宙棱镜','二零三零','天堂之孔','虚数魔术','黑杯','社交界之花','春风游步道','第六天魔王','日轮之城','壬生狼','帝都圣杯战争','坂本侦探事务所','研磨锐牙之暗剑','海滨奢华','白色航游','砂糖假期','小小夏日','迦勒底沙滩排球','Kingjokerjack','盛夏一刻','潜入湛蓝','贝娜丽莎','迦勒底下午茶时光','夏日阎魔亭','紫之眼','迎宾兔女郎','死之艺术','毒蛇一艺','柔软的慈爱','迦勒底的学者'}
 	--迦勒底午餐时光 
 	local ret = gift_database[gift_UI_no+1]
 	
@@ -2432,16 +2432,7 @@ function lowfunction.GetCharPos(SkillNo,Side)
 	local CharNo = lowfunction.GetCharNo(SkillNo) --获取当前角色编号
 	
 	
-	if CharNo == 4  then --御主技能
-		local LocationTable = {LeftLocation3_glo,MidLocation3_glo,RightLocation3_glo}
-		for key,value in ipairs(LocationTable) do
-			if value == 1 then --找到主攻手 获取其编号  1主攻 2 副攻 3 辅助
-				BuffChar = key
-				BaoJuChar = key
-			end
-		end
-		return BuffChar,BaoJuChar,CharNo
-	end
+	
 	if Side == 1 then
 		local LocationTable = {LeftLocation1_glo,MidLocation1_glo,RightLocation1_glo}
 		-- LeftLocation1_glo MidLocation1_glo RightLocation1_glo 联动决定buffchar给谁
@@ -2482,7 +2473,16 @@ function lowfunction.GetCharPos(SkillNo,Side)
 			end
 		end
 		
-	
+		if CharNo == 4  then --御主技能
+			local LocationTable = {LeftLocation1_glo,MidLocation1_glo,RightLocation1_glo}
+			for key,value in ipairs(LocationTable) do
+				if value == 1 then --找到主攻手 获取其编号  1主攻 2 副攻 3 辅助
+					BuffChar = key
+					BaoJuChar = key
+				end
+			end
+			return BuffChar,BaoJuChar,CharNo
+		end
 	end
 	
 	
@@ -2524,7 +2524,16 @@ function lowfunction.GetCharPos(SkillNo,Side)
 				end
 			end
 		end
-	
+		if CharNo == 4  then --御主技能
+			local LocationTable = {LeftLocation2_glo,MidLocation2_glo,RightLocation2_glo}
+			for key,value in ipairs(LocationTable) do
+				if value == 1 then --找到主攻手 获取其编号  1主攻 2 副攻 3 辅助
+					BuffChar = key
+					BaoJuChar = key
+				end
+			end
+			return BuffChar,BaoJuChar,CharNo
+		end
 	end
 	
 	
@@ -2567,7 +2576,16 @@ function lowfunction.GetCharPos(SkillNo,Side)
 				end
 			end
 		end
-	
+		if CharNo == 4  then --御主技能
+			local LocationTable = {LeftLocation3_glo,MidLocation3_glo,RightLocation3_glo}
+			for key,value in ipairs(LocationTable) do
+				if value == 1 then --找到主攻手 获取其编号  1主攻 2 副攻 3 辅助
+					BuffChar = key
+					BaoJuChar = key
+				end
+			end
+			return BuffChar,BaoJuChar,CharNo
+		end
 	end
 	
 	
@@ -2741,10 +2759,10 @@ function lowfunction.CheckFriend()
      
     
 	if Ret == 2 then
-		nLog("【未进入申请好友界面】")
+		sysLog("【未进入申请好友界面】")
 		return false
 	else
-		nLog("【进入申请好友界面】")
+		sysLog("【进入申请好友界面】")
 		return true
 	end
 	
