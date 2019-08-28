@@ -65,7 +65,8 @@ def UploadKeyCode(DataList):
     # 关闭数据库连接
     conn.close()
 
-def UnlockKeyCode(code):
+def UnlockKeyCode(imei,keycode):
+   
     # 连接database
     conn = pymysql.connect(
         host='127.0.0.1',
@@ -83,8 +84,9 @@ def UnlockKeyCode(code):
     # Create Tables
     # sql = "CREATE TABLE RegKeyCode(id INT auto_increment PRIMARY KEY,purekeycode CHAR(36) NOT NULL UNIQUE,KeyType INT);"
     # presql2 = "CREATE TABLE PayUsers(id INT auto_increment PRIMARY KEY,keycode CHAR(36) NOT NULL UNIQUE,imeicode CHAR(15) NOT NULL UNIQUE,regtime datetime,deadtime datetime);"
-    UnlockCodeSql = "update PayUsers set IMEICode=1 where IMEICode=%s"
-    cursor.execute(UnlockCodeSql, code)
+    UnlockCodeSql = "update PayUsers set imeicode=%s where keycode=%s"
+    
+    cursor.execute(UnlockCodeSql,(imei,keycode))
     conn.commit()
 
     # 关闭光标对象
@@ -110,11 +112,8 @@ if __name__ == '__main__':
         DataList = MakeKeyCode(int(num), numtype)
         UploadKeyCode(DataList)
     elif SelectedType == "2":
-        file = open("UnlockKey.txt")
-        while 1:
-            line = file.readline()
-            if not line:
-                break
-            else
-                #read a line
-                UnlockKeyCode(line)
+        print('Please input imei and keycode[|]:\n')
+        enterstr = input()
+        imei=enterstr.split("|")[0]
+        keycode = enterstr.split("|")[1]
+        UnlockKeyCode(imei,keycode)
