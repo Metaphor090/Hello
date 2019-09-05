@@ -413,10 +413,27 @@ function Tools.GetSingleHud(showText)
 	w=300
 	h=100
 	id = createHUD()     --创建一个HUD
+	
 	showHUD(id,showText,36,"0xffff0000",'SingleHud.jpg',0, 100,0,w,h) 
 	mSleep(1500)
 	hideHUD(id)     --隐藏HUD
 	mSleep(100)
+end
+
+--计算场次
+function Tools.ShowScoreCard(id)
+	local true_height,true_width = getScreenSize()--获取屏幕分辨率
+	if true_height > true_width then
+		--调换参数数据
+		temp_pix = true_width
+		true_width = true_height
+		true_height = temp_pix
+	end
+	--这里的位置应该是给一个相对比例位置
+	HeightScale = 200/true_height
+	WidthScale = 150/true_width
+	HeightScale2 = 50/true_height
+	showHUD(id,"进度："..Count_glo.."/"..edit1_glo,18,"0xffff0000",'SingleHud.jpg',0, 0,true_height*HeightScale,true_width*WidthScale,true_height*HeightScale2) 
 end
 
 

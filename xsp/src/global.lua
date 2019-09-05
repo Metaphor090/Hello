@@ -19,7 +19,7 @@ FirstSkipFlag = 0 --判断首次是否跳过编队界面
 check_ret1 = {}
 check_ret2 = {}
 check_ret3 = {}
-
+Count_glo = 1 --计分板
 --对区服划分预留参数位置
 Helper_flag_table = {}
 Destruction_point = {}
@@ -312,14 +312,23 @@ Battle_Over_Table = {
 
 NewBattle_Over_Table = {
 	Anchor="Middle",MainPoint={x=638,y=346},
-	Area={87,60,1192,709},
+	Area={105,73,157,110},
 	{x=124,y=91,color=0xe9b723,offset=0x151515},
 	{x=140,y=91,color=0xe9b723,offset=0x151515},
-	{x=1005,y=679,color=0xd1d1d1,offset=0x101010},
-	{x=768,y=111,color=0xffffff,offset=0x101010},
-	{x=868,y=111,color=0xffffff,offset=0x101010}
 
 }
+
+NewBattle_Over_Table2 = {
+
+	Anchor="Middle",MainPoint={x=638,y=346},
+	Area={272,522,342,592},
+	{x=304,y=549,color=0x82dcfd,offset=0x202020},
+	{x=309,y=562,color=0x1b3a85,offset=0x202020},
+	{x=314,y=545,color=0x428edc,offset=0x202020}
+
+}
+
+
 NewBattle_Over_Flag = {
 	{1132,148},
 	{1119,592},
@@ -344,15 +353,12 @@ Battle_Over_Flag = {
 NextStroyTable = {
 	Anchor="Middle",MainPoint={x=638,y=346},
 	Area={8,83,1278,618},
-	{x=761,y=304,color=0xffff2d,offset=0x404040},
-	{x=762,y=304,color=0xffff2d,offset=0x404040},
-	{x=763,y=305,color=0xfff737,offset=0x404040},
-	{x=769,y=307,color=0xfff324,offset=0x404040},
-	{x=777,y=311,color=0xffd917,offset=0x404040},
-	{x=783,y=314,color=0xffcd1e,offset=0x404040},
-	{x=790,y=313,color=0xffcb2f,offset=0x404040},
-	{x=797,y=309,color=0xffe220,offset=0x404040},
-	{x=808,y=305,color=0xfff027,offset=0x404040}
+	{x=625,y=257,color=0xfcc409,offset=0x303030},
+	{x=634,y=263,color=0xfdab0e,offset=0x303030},
+	{x=639,y=267,color=0xfe9f09,offset=0x303030},
+	{x=664,y=250,color=0x27281e,offset=0x404040},
+	{x=639,y=257,color=0x3e3a1f,offset=0x404040},
+	{x=608,y=255,color=0x32311e,offset=0x404040}
 
 }
 
@@ -363,6 +369,19 @@ StoryRoomTable = {
 	{x=948,y=137,color=0x1f5892,offset=0x202020},
 	{x=1075,y=138,color=0x133d76,offset=0x202020},
 	{x=1081,y=211,color=0xbbb3a3,offset=0x202020}
+}
+
+--管理室特征码
+ControlRoomTable = {
+
+	Anchor="Middle",MainPoint={x=638,y=346},
+	Area={31,18,59,65},
+	{x=42,y=39,color=0x2c356e,offset=0x151515},
+	{x=41,y=48,color=0xd7d7df,offset=0x151515},
+	{x=48,y=43,color=0x1c254c,offset=0x151515},
+	{x=45,y=31,color=0x2e3d66,offset=0x151515},
+	{x=50,y=54,color=0x141c3d,offset=0x151515}
+	
 }
 
 --AP补充标识
@@ -964,6 +983,17 @@ BB =
 	{x=144,y=258,color=0xf2e2e2,offset=0x151515},
 	{x=196,y=237,color=0xfde2f5,offset=0x303030}
 },
+
+大英雄 = {
+
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+	{x=75,y=239,color=0x98f1c8,offset=0x151515},
+	{x=110,y=245,color=0xf9d896,offset=0x151515},
+	{x=129,y=243,color=0xd3a180,offset=0x151515},
+	{x=171,y=240,color=0x2d2d2d,offset=0x151515}
+
+}
 
 
 

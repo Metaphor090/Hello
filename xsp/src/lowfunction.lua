@@ -81,7 +81,7 @@ function lowfunction.Skill_comfirm(Skill_No,Skill_colors)
 		sysLog(color.."=="..Skill_colors[Skill_No])
 		--前置检测技能参数是否有误
 		
-		if (math.abs(color - Skill_colors[Skill_No]) <= 65535) and color ~=0 and  Skill_colors[Skill_No]~=0 then -- 如果两个颜色相同说明可以使用
+		if math.abs(color - Skill_colors[Skill_No]) <= 131586 and color ~=0 and  Skill_colors[Skill_No]~=0 then -- 如果两个颜色相同说明可以使用
 			sysLog("【技能可使用】")
 			ret = 1
 		
@@ -549,7 +549,8 @@ end
 
 function lowfunction.NewBattleOver()
 	Tools.mSleep_level(100,level)
-	local ret = Tools.Single_FindColor(true,NewBattle_Over_Table)
+	local ret = Tools.Single_FindColor(true,NewBattle_Over_Table) 
+	local ret2 = Tools.Single_FindColor(true,NewBattle_Over_Table2)
 	--local ret2 = Tools.Single_FindColor(Battle_Over_Table)
 	--Battle_Over_Point 四个点都小于30
 	local Battle_flag = 0
@@ -561,7 +562,7 @@ function lowfunction.NewBattleOver()
 	end
 	
 	
-	if Battle_flag >=3 and ret == true then
+	if Battle_flag >=3 and ret == true and ret2 == true then
 		sysLog("【战斗结束】")
 		Tools.mSleep_level(1000,level)
 		Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
@@ -994,10 +995,10 @@ function lowfunction.Helper_Select(Select_mode,profession_type,servent_name,Gift
 	while res == 0 do
 		--然后获取英灵特征 这里开始遍历滑条
 		--Tools.SingleSnapshot()
-		Tools.mSleep_level(1000,level) 
+		Tools.mSleep_level(500,level) 
 		Click_servent_xy = Tools.Single_FindColor_Site(true,Servent_name_table[servent_name])
-		Tools.mSleep_level(1200,level)
 		--然后获取礼装特征
+		Tools.mSleep_level(500,level) 
 		Click_gift_xy = Tools.Single_FindColor_Site(true,Gift_name_table[Gift_name])
 		--添加多次刷新失败的扩大搜索条件（不识别满破）
 		if ResTimer > MaxHelperTimerGlo + 1 then
@@ -1297,7 +1298,7 @@ function lowfunction.Helper_Char_database(char_UI_no)
 	local char_database = {'saber|呆毛王','saber|小莫','saber|大王','archer|闪闪','archer|水呆毛','caster|孔明','caster|梅林','assassin|杀阶老太婆','assassin|杰克','lancer|枪阶老太婆','lancer|迦尔纳','rider|拉二','rider|船长',
 		'berserker|奶光','berserker|黑狗','extra|黑贞','lancer|贞德lily','archer|弓凛','rider|黑骑呆','berserker|狂长江','assassin|艳后','caster|水尼禄','rider|R小莫','caster|妖僧','berserker|狂金时','lancer|小恩','caster|C狐','extra|北斋',
 		'berserker|BX毛','saber|武藏','saber|冲田总司','saber|花嫁尼禄','archer|阿周那','archer|特斯拉','archer|弓凛','lancer|白枪呆','lancer|枪凛','assassin|山中老人',
-		'assassin|酒吞','extra|BB','extra|天草','extra|伯爵','extra|阿比','caster|术尼托','lancer|枪狐','caster|术师匠','lancer|枪奶光'}
+		'assassin|酒吞','extra|BB','extra|天草','extra|伯爵','extra|阿比','caster|术尼托','lancer|枪狐','caster|术师匠','lancer|枪奶光','archer|大英雄'}
 	local ret = Tools.Split(char_database[char_UI_no+1], '|')  
 	return ret[1],ret[2]
 end
@@ -1306,7 +1307,7 @@ end
 --助战礼装数据库 代入编号 返回 礼装名
 --'纯洁绽放','阿尔托莉雅之星','巫女狐','化为红莲的影之国','正射必中'
 function lowfunction.Helper_Gift_database(gift_UI_no)
-	local gift_database = {'迦勒底午餐时光','圣夜晚餐','万华镜','达芬奇','宇宙棱镜','二零三零','天堂之孔','虚数魔术','黑杯','社交界之花','春风游步道','第六天魔王','日轮之城','壬生狼','帝都圣杯战争','坂本侦探事务所','研磨锐牙之暗剑','海滨奢华','白色航游','砂糖假期','小小夏日','迦勒底沙滩排球','Kingjokerjack','盛夏一刻','潜入湛蓝','贝娜丽莎','迦勒底下午茶时光','夏日阎魔亭','紫之眼','迎宾兔女郎','死之艺术','毒蛇一艺','柔软的慈爱','迦勒底的学者'}
+	local gift_database = {'迦勒底午餐时光','圣夜晚餐','万华镜','达芬奇','宇宙棱镜','二零三零','天堂之孔','虚数魔术','黑杯','社交界之花','春风游步道','第六天魔王','日轮之城','壬生狼','帝都圣杯战争','坂本侦探事务所','研磨锐牙之暗剑','海滨奢华','白色航游','砂糖假期','小小夏日','迦勒底沙滩排球','Kingjokerjack','盛夏一刻','潜入湛蓝','贝娜丽莎','迦勒底下午茶时光','夏日阎魔亭','紫之眼','迎宾兔女郎','甜蜜之日','法老巧克力','第一次的情人节','魔女厨房'}
 	--迦勒底午餐时光 
 	local ret = gift_database[gift_UI_no+1]
 	
@@ -1676,9 +1677,9 @@ function lowfunction.Resolution_profile(true_width,true_height)
 	
 	
 	--2.18：9的屏幕 开始都要特殊处理
-	
+	--dialog("比例是："..tostring(true_width/true_height))
 
-	if tostring(true_width/true_height) == '2' then
+	if true_width/true_height > 1.9 and  true_width/true_height < 2.1 then
 		sysLog("当前调用的是18：9的方案")
 
 		--这里进行分辨率划分
@@ -2138,7 +2139,7 @@ function lowfunction.Resolution_profile(true_width,true_height)
 
 	
 	if profile_flag == 0 then
-		dialog("不支持的分辨率!请截图联系作者添加支持！您当前的分辨率是"..true_width.."x"..true_height, 0)
+		dialog("不支持的分辨率!请截图联系作者添加支持！您当前的分辨率是"..true_width.."x"..true_height..",比例是："..tostring(true_width/true_height), 0)
 
 		lua_exit(); --否则退出脚本
 
@@ -2634,7 +2635,7 @@ function lowfunction.GetCurrentCharAttribute()
 				
 				--比对
 				sysLog(color..'='..CharacterTable[CurChar])
-				if math.abs(CharacterTable[CurChar] - color) >= 201586 and color~= 16777215 and color ~= 0 then --添加一个去除杂色的条件 16777215 -ffffff 0
+				if math.abs(CharacterTable[CurChar] - color) >= 100798 and color~= 16777215 and color ~= 0 then --添加一个去除杂色的条件 16777215 -ffffff 0
 					
 					sysLog('角色发生改变~重新采集技能数据')
 					CharacterTable[CurChar] = color
@@ -2665,7 +2666,7 @@ function lowfunction.GetCurrentCharAttribute()
 			color = Tools.Single_ColorStr(true,CharacterFlag[CurChar][1],CharacterFlag[CurChar][2])
 			--比对
 			sysLog(color..'='..CharacterTable[CurChar])
-			if math.abs(CharacterTable[CurChar] - color) >= 201586 and color~= 16777215 and color ~= 0 then --添加一个去除杂色的条件 16777215 -ffffff 0
+			if math.abs(CharacterTable[CurChar] - color) ~= 0 and color~= 16777215 and color ~= 0 then --添加一个去除杂色的条件 16777215 -ffffff 0
 				
 				sysLog('角色发生改变~重新采集技能数据')
 				CharacterTable[CurChar] = color
@@ -2674,13 +2675,13 @@ function lowfunction.GetCurrentCharAttribute()
 					color = Tools.Single_ColorStr(false,Skill_Site[i][1],Skill_Site[i][2])
 					--table.insert(Skill_Attribute,color)
 					--替换到总表里 Skill_colors
-					sysLog("刷新技能"..color.."替换掉"..Skill_colors[i])
+					--sysLog("刷新技能"..color.."替换掉"..Skill_colors[i])
 					Skill_colors[i] = color
 				end
 				--将新的特征码存储到角色特征中
 			else
 				
-				sysLog('角色未发生改变~'..color)
+				sysLog(tostring(CurChar)..'角色未发生改变~'..color)
 				
 			end
 		
@@ -2743,9 +2744,9 @@ function lowfunction.CheckGiftFullLv(BaseXY)
 	local BaseTable = {
 	Anchor="Middle",MainPoint={x=640,y=360},
 	Area={BaseXY.x-130,BaseXY.y-44,BaseXY.x+150,BaseXY.y+44},
-		{x=192,y=555,color=0xffff2f,offset=0x101010}
+		{x=192,y=555,color=0xffff2f,offset=0x303030}
 	}
-	GiftRet = Tools.Single_FindColor(false,BaseTable)
+	GiftRet = Tools.Single_FindColor(true,BaseTable)
 	return GiftRet
 	
 end
@@ -2781,15 +2782,49 @@ function lowfunction.SearchMap(PreGray)
 		Tools.mSleep_level(500,level)
 		Ret = lowfunction.DynamicScanning(PreGray)
 		if Ret == false then
-			sysLog("【未匹配到主线房间】")
-			dialog("【未匹配到主线房间】,请联系作者",0)
+			sysLog("【跳过纯剧情关卡】")
+			--在这里写逻辑
+			lowfunction.PassMovieStory()
+			return true
+			--dialog("【未匹配到主线房间】,请联系作者",0)
+			
 		else
-			return Ret
+			return false
 		end
 	end
 	
 	
 
+end
+
+
+--跳过纯剧情关卡
+function lowfunction.PassMovieStory()
+	local EnterClickPoint = {920,166}
+	local ReEnterClickPoint = {823,563}
+	
+	
+	Tools.mSleep_level(2000,level)
+	Tools.Source_Single_Click(EnterClickPoint[1],EnterClickPoint[2])
+	Tools.mSleep_level(2000,level)
+	Tools.Source_Single_Click(ReEnterClickPoint[1],ReEnterClickPoint[2])
+	
+	while true do
+		Tools.mSleep_level(2000,level)
+		MovieRet = lowfunction.Movie_confirm()
+		if MovieRet == 1 then
+			--检测到就点击跳过
+			Tools.mSleep_level(1000,level)
+			Tools.Source_Single_Click(Movie_flag.point[1],Movie_flag.point[2])
+			Tools.mSleep_level(1000,level)
+			Tools.Source_Single_Click(Moive_confirm_point[1],Moive_confirm_point[2])
+			Tools.mSleep_level(8000,level)
+			Tools.GetSingleHud("跳过剧情")
+			break
+		end
+		
+	end
+	
 end
 
 --找主线room特征
@@ -2818,19 +2853,19 @@ end
 
 --动态扫描  用多点匹配来找大概位置
 function lowfunction.DynamicScanning(PrePoint)
-	local pixOver = 80
+	local pixOver = 90
 	local AfterPointColorInfo = 0
 	local AfterGray = 0
 	SourcePoint = {1206,100}
 	--记录一个原始点
 	mSleep(500)
-	local SourcePointColorInfo = Tools.Single_ColorRGB(true,SourcePoint[1],SourcePoint[2])
-	local SourceGray = (SourcePointColorInfo.r*299 + SourcePointColorInfo.g*587 + SourcePointColorInfo.b*114 + 500) / 1000
-	if math.abs(PrePoint - SourceGray) <= 2 then
-		--说明是房间模式
-		return PrePoint
-		
-	else
+	--local SourcePointColorInfo = Tools.Single_ColorRGB(true,SourcePoint[1],SourcePoint[2])
+	--local SourceGray = (SourcePointColorInfo.r*299 + SourcePointColorInfo.g*587 + SourcePointColorInfo.b*114 + 500) / 1000
+	--dialog("当前的灰度值："..tostring(math.abs(PrePoint - SourceGray)))
+	--还是用特征找色来判定ControlRoomTable
+	ContorlRoomRet = Tools.Single_FindColor(true,ControlRoomTable)
+	if ContorlRoomRet == true then
+		--说明是特异点界面
 		while true do
 			--NextStroyTable
 			mSleep(500)
@@ -2848,19 +2883,43 @@ function lowfunction.DynamicScanning(PrePoint)
 				end
 				--查看房间是否变黑
 				Tools.mSleep_level(500,level)
-				AfterPointColorInfo = Tools.Single_ColorRGB(true,SourcePoint[1],SourcePoint[2])
-				AfterGray = (AfterPointColorInfo.r*299 + AfterPointColorInfo.g*587 + AfterPointColorInfo.b*114 + 500) / 1000
-				sysLog("AfterGray:"..tostring(AfterGray)..",".."SourceGray:"..tostring(SourceGray))
-				if math.abs(SourceGray - AfterGray) >= 2 then
+				--AfterPointColorInfo = Tools.Single_ColorRGB(true,SourcePoint[1],SourcePoint[2])
+				--AfterGray = (AfterPointColorInfo.r*299 + AfterPointColorInfo.g*587 + AfterPointColorInfo.b*114 + 500) / 1000
+				--sysLog("AfterGray:"..tostring(AfterGray)..",".."SourceGray:"..tostring(SourceGray))
+				ContorlRoomRet = Tools.Single_FindColor(true,ControlRoomTable)
+				if ContorlRoomRet == false then
 					toast("已经激活房间！")
 					sysLog("已经激活房间！")
-					return AfterGray
+					--判断房间是否需要战斗
+					if Tools.Single_FindColor(false,PassFightTable) then
+						
+						sysLog("跳过剧情模式")
+						
+						return false
+					else
+						sysLog("剧情战斗模式")
+						return true
+					end
+					
 				end
 			else
 				--扩大搜索范围
 				pixOver = pixOver - 10
 			end
 	
+		end
+		
+	else--说明是房间界面
+		toast("已经激活房间！")
+		sysLog("已经激活房间！")
+		--判断房间是否需要战斗
+		if Tools.Single_FindColor(false,PassFightTable) then
+			sysLog("跳过剧情模式")
+		
+			return false
+		else
+			sysLog("剧情战斗模式")
+			return true
 		end
 	
 	end
@@ -2873,13 +2932,16 @@ end
 function lowfunction.MultInterfaceCheck()
 	--两个界面的基准色
 	APRechargeBaseColorStr = 15724535
+	--APRechargeBaseColorStr2 = 9537397
 	if ServerTypeGlo == 2 then
 		HelperBaseColorStr = 1982287
 	else
 		HelperBaseColorStr = 3164505
+							 --12901605
 		
 	end
 	HelperBaseColorStr2 = 1916494
+	HelperBaseColorStr3 = 12901605
 	MultInterfaceCheckPoint={1014,383}
 
 
@@ -2889,6 +2951,7 @@ function lowfunction.MultInterfaceCheck()
 	--进行比对
 	HleperDiff = math.abs(BaseColorStr-HelperBaseColorStr)
 	APRDiff = math.abs(BaseColorStr-APRechargeBaseColorStr)
+	--dialog("BaseColorStr:"..tostring(BaseColorStr)..",".."HleperDiff:"..tostring(HleperDiff)..",".."APRDiff:"..tostring(APRDiff))
 	sysLog("BaseColorStr:"..tostring(BaseColorStr)..",".."HleperDiff:"..tostring(HleperDiff)..",".."APRDiff:"..tostring(APRDiff))
 	if  APRDiff< 1000000 and HleperDiff > APRDiff then --助战偏大说明是ap界面
 		sysLog("AP补充界面")
@@ -2899,10 +2962,11 @@ function lowfunction.MultInterfaceCheck()
 	else
 		--不符合的话 调换base参数再试一次
 		HleperDiff = math.abs(BaseColorStr-HelperBaseColorStr2)
+		HleperDiff2 = math.abs(BaseColorStr-HelperBaseColorStr3)
 		if  APRDiff< 1000000 and HleperDiff > APRDiff then --助战偏大说明是ap界面
 			sysLog("AP补充界面")
 			return "APR"
-		elseif HleperDiff < 1000000 and HleperDiff < APRDiff then --AP偏大 说明是助战
+		elseif (HleperDiff < 1000000 or HleperDiff2 < 1000000) and HleperDiff < APRDiff or HleperDiff2 < APRDiff then --AP偏大 说明是助战
 			sysLog("助战界面")
 			return "Hleper"
 		end
@@ -2937,5 +3001,22 @@ function lowfunction.MultInterfaceFriendAndMain()
 		return false
 	end
 
+end
+
+function lowfunction.CheckTiming(SleepTime)
+	origin = getNetTime();  --代表北京时间 2014/7/4 10:12:27
+	while true do
+		mSleep(600*1000)--等待时长10min一次吧
+		origin_text = os.date("%Y/%m/%d %X", origin);    --格式化时间 
+		current = getNetTime();                            --获取网络时间 
+		current_text = os.date("%Y/%m/%d %X", current);    --格式化时间 
+		if current - origin >= SleepTime*60 then
+			sysLog("已经休息够啦~开刷")
+			return true
+		else
+			sysLog("还没休息够呢~")
+		end
+	end
+	
 end
 --==================================

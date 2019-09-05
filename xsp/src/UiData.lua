@@ -86,6 +86,7 @@ function UiData.GetUIData()
 		Card_color_func_glo3 = tonumber(UIret.出牌策略选择三)
 		Card_type_func_glo = tonumber(UIret.出牌方式) -- '首卡染色', '三色卡','克制出卡','助战出卡','一人出一卡'
 		level = 0
+		SubstituteSkillGlo = tonumber(UIret.替补释放技能)
 		preGroup_func_glo = UIret.预警技能 --预警参数获取
 		--第一面
 		fire_in_func_1_glo = tonumber(UIret.优先集火选择一)+1 --集火左 中 右

@@ -42,7 +42,9 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 			--先检测是否找到主线room，如果没找到则调用 搜寻map
 			
 			PreGray = lowfunction.SearchMap(PreGray)
-		
+			if PreGray == true  then
+				return true
+			end
 			--就直接进了
 			Tools.mSleep_level(1000,level)
 			Tools.Source_Single_Click(Room_Point[1],Room_Point[2])	--点击固定点Room_Point = {884,180}
@@ -64,7 +66,7 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 			--自然回体  --关闭按钮 然后计时711,209
 			Tools.Source_Single_Click(AP_Recharge_Close[1],AP_Recharge_Close[2])
 			--等待时间计时 5分钟1点 5x40 200分钟 12000
-			mSleep(13000*1000)--等待时长
+			lowfunction.CheckTiming(200)
 			return 1
 			
 		else
@@ -86,7 +88,7 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 		else
 			Tools.GetSingleHud("不是助战界面，请手动点入房间")
 			HelperTime = HelperTime + 1
-			if HelperTime >=10 then
+			if HelperTime >=5 then
 				BaseColorStr = Tools.Single_ColorStr(true,MultInterfaceCheckPoint[1],MultInterfaceCheckPoint[2])
 				dialog("助战界面获取超时！,将该界面截图发给技术支持~"..tostring(BaseColorStr),0)
 				break
@@ -111,7 +113,7 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 		
 	end
 	
-	
+	local formationFlag = 1
 	while true do
 		if SkipMode == true and FirstSkipFlag==1 then
 			break
@@ -123,6 +125,7 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 			formation_confirm_ret = lowfunction.formation_confirm()
 			FirstSkipFlag = 1
 		end
+		
 		if formation_confirm_ret == 1 then
 			--点击开始战斗1187,680 Start_Game_point
 			Tools.mSleep_level(1000,level)
@@ -151,6 +154,11 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 				end
 			end
 			break
+		else
+			formationFlag = formationFlag + 1
+			if formationFlag >= 3 then
+			
+			end
 		end
 	end
 
@@ -226,7 +234,7 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 	sw_refresh_flag = 1 --换人礼装激活位置
 	BaseStageFlag = 0
 	CurrentStage = 1
-	
+	Count_glo = Count_glo + 1
 end
 
 
@@ -264,8 +272,13 @@ function invoking.FightEX(StoryOS,SkipMode)
 	--初始化画面延迟参数
 	Tools.mSleep_level(1000,level)
 	
+	--开启计分板
+	BattleTimerID = createHUD()  
+	Tools.ShowScoreCard(BattleTimerID)
 	Skill_colors = lowfunction.GetCurrentSkillAttribute()
+	
 	while(fight_os) do
+		Tools.mSleep_level(1000,level)
 		Baoju_do_table = {}
 		local Baoju_ins_flag = 1
 		
@@ -275,8 +288,9 @@ function invoking.FightEX(StoryOS,SkipMode)
 		if Stella_switch_func_glo ==1 then --这两个有其中一个激活的话则关闭智能替换技能功能
 			--这里进行智能换人效果
 			Tools.mSleep_level(200,level)
-			lowfunction.GetCurrentCharAttribute()
-		
+			if SubstituteSkillGlo == 0 then --是
+				lowfunction.GetCurrentCharAttribute()
+			end
 		else
 			--在这里重置阿拉什换人效果 als_refresh_flag 阿拉什标识  SwitchFlag 换人信号
 			if 	als_refresh_flag == 1 and SwitchFlag == 1 then
@@ -540,7 +554,9 @@ function invoking.FightEX(StoryOS,SkipMode)
 		
 	end
 	
+	--关闭记分板
 	
+	hideHUD(BattleTimerID)     --隐藏HUD
 end
 
 
@@ -726,22 +742,22 @@ function invoking.Check_Battle_Over(SkipMode)
 					Movie_confirm_ret = lowfunction.Movie_confirm()
 					if Movie_confirm_ret == 1 and MoviePassFlag == 1 then
 						--检测到就点击跳过
-						Tools.mSleep_level(1000,level)
+						Tools.mSleep_level(2000,level)
 						Tools.Source_Single_Click(Movie_flag.point[1],Movie_flag.point[2])
-						Tools.mSleep_level(1000,level)
+						Tools.mSleep_level(500,level)
 						Tools.Source_Single_Click(Moive_confirm_point[1],Moive_confirm_point[2])
 						MoviePassFlag = 0
 					elseif lowfunction.CheckFriend() and CheckFriendPassFlag == 1 then
 						--申请好友界面 根据选项AddFriendsGlo
 						if AddFriendsGlo == 0 then
 							--点否RefusedFriendPoint
-							Tools.mSleep_level(1000,level)
+							Tools.mSleep_level(500,level)
 							Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
 						else
 							--点是
-							Tools.mSleep_level(1000,level)
+							Tools.mSleep_level(500,level)
 							Tools.Source_Single_Click(AddFriendPoint[1][1],AddFriendPoint[1][2])
-							Tools.mSleep_level(1000,level)
+							Tools.mSleep_level(500,level)
 							Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
 						end
 						CheckFriendPassFlag = 0
@@ -770,9 +786,9 @@ function invoking.Check_Battle_Over(SkipMode)
 						else
 							CheckSum = CheckSum + 1
 							if CheckSum > 20 then
-								nLog("获取主界面超时！")
 								
-								toast("获取主界面超时！",3)
+								
+								toast("获取主界面超时！")
 								ret = lowfunction.Main_Page_confirm()
 								if ret == 1 then
 									
@@ -789,69 +805,116 @@ function invoking.Check_Battle_Over(SkipMode)
 				end
 			
 			elseif ServerTypeGlo == 1  then  --日服
-				--连续出战之前检查是否需要加好友
-				if lowfunction.CheckFriend() then
-					--申请好友界面 根据选项AddFriendsGlo
-					if AddFriendsGlo == 0 then
-						--点否RefusedFriendPoint
-						Tools.mSleep_level(1000,level)
-						Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
-					else
-						--点是
-						Tools.mSleep_level(1000,level)
-						Tools.Source_Single_Click(AddFriendPoint[1][1],AddFriendPoint[1][2])
-						Tools.mSleep_level(1000,level)
-						Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
-					end
-				end
-				--dialog("连续作战点击")
-				if SkipMode == true then
-					Tools.mSleep_level(2000,level)
-					if  CurrentDoTime < edit1_glo then
-						Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
-					else
-						Tools.Source_Single_Click(CancelFight[1],CancelFight[2])
-						return 1
-					end
-					--判断是否需要补充ap
-					Tools.mSleep_level(2000,level)
-					CheckRet = lowfunction.MultInterfaceCheck()
-					if CheckRet == "APR" then
-						
-						Tools.GetSingleHud("AP补充开启")
-						--如果是立即回体则调用以下
-						if AP_recharge_func_glo+1 == 5 then
-							--自然回体  --关闭按钮 然后计时711,209
-							Tools.Source_Single_Click(AP_Recharge_Close[1],AP_Recharge_Close[2])
-							--等待时间计时 5分钟1点 5x40 200分钟 12000
-							mSleep(13000*1000)--等待时长
-							return 1
-							
-						else
-							--需要补充 type 1 圣晶石 2 黄金果实 3 白银 4青铜
-							lowfunction.AP_Recharge(AP_recharge_func_glo+1)
-						end
-					end
-					return 1
-				end
 				
 				while true do
-					Movie_confirm_ret = lowfunction.Movie_confirm()
-					if Movie_confirm_ret == 1 then
+					Tools.mSleep_level(2000,level)
+					if lowfunction.CheckFriend() and CheckFriendPassFlag == 1 then
+						--申请好友界面 根据选项AddFriendsGlo
+						if AddFriendsGlo == 0 then
+							--点否RefusedFriendPoint
+							Tools.mSleep_level(1000,level)
+							Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
+						else
+							--点是
+							Tools.mSleep_level(500,level)
+							Tools.Source_Single_Click(AddFriendPoint[1][1],AddFriendPoint[1][2])
+							Tools.mSleep_level(500,level)
+							Tools.Source_Single_Click(AddFriendPoint[2][1],AddFriendPoint[2][2])
+						end
+						CheckFriendPassFlag = 0
+						if SkipMode == true then
+							--连续作战模式需要点的
+							Tools.mSleep_level(2000,level)
+							if  CurrentDoTime < edit1_glo then
+								Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
+							else
+								Tools.Source_Single_Click(CancelFight[1],CancelFight[2])
+								return 1
+							end
+							Tools.mSleep_level(2000,level)
+							CheckRet = lowfunction.MultInterfaceCheck()
+							if CheckRet == "APR" then
+							
+								Tools.GetSingleHud("AP补充开启")
+								--如果是立即回体则调用以下
+								if AP_recharge_func_glo+1 == 5 then
+									--自然回体  --关闭按钮 然后计时711,209
+									Tools.Source_Single_Click(AP_Recharge_Close[1],AP_Recharge_Close[2])
+									--等待时间计时 5分钟1点 5x40 200分钟 12000
+									mSleep(13000*1000)--等待时长
+									return 1
+									
+								else
+									--需要补充 type 1 圣晶石 2 黄金果实 3 白银 4青铜
+									lowfunction.AP_Recharge(AP_recharge_func_glo+1)
+								end
+							end
+								
+							return 1
+						else
+							
+							
+						end
+					elseif lowfunction.Movie_confirm() == 1 and MoviePassFlag == 1 then
 						--检测到就点击跳过
-						Tools.mSleep_level(1000,level)
+						Tools.mSleep_level(2000,level)
 						Tools.Source_Single_Click(Movie_flag.point[1],Movie_flag.point[2])
-						Tools.mSleep_level(1000,level)
+						Tools.mSleep_level(500,level)
 						
 						Tools.Source_Single_Click(Moive_confirm_point[1],Moive_confirm_point[2])
-					end
-				
-					ret = lowfunction.Main_Page_confirm()
-			
-					if ret == 1 then
-						return 1
+						MoviePassFlag = 0
+					else
+						--Tools.mSleep_level(2000,level)
+						ret = lowfunction.Main_Page_confirm()
+						local MainFlag = 1
+						if ret == 1 then
+							--这里进行多次校验
+							
+							for i=1,3,1 do
+								Tools.mSleep_level(1000,level)
+								ret = lowfunction.Main_Page_confirm()
+								if ret == 1 then
+									MainFlag = MainFlag + 1
+								end
+							
+								if MainFlag >= 4 then
+									return 1
+							
+								end
+							end
+							
+						else
+							CheckSum = CheckSum + 1
+							if CheckSum > 20 then
+								--nLog("获取主界面超时！")
+								
+								toast("获取主界面超时！",3)
+								ret = lowfunction.Main_Page_confirm()
+								if ret == 1 then
+									
+								else
+									--点击好友按钮RefusedFriendPoint
+									Tools.mSleep_level(1000,level)
+									Tools.Source_Single_Click(RefusedFriendPoint[1],RefusedFriendPoint[2])
+								end
+								
+							end
+						end
 					end
 				end
+				
+			
+			
+					
+				
+				
+				
+				
+			
+				
+				
+				
+				
 		
 			end
 		else

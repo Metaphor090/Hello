@@ -17,6 +17,7 @@ require("UiData")
 --===================================END==============================
 
 init("0", 1);
+id = createHUD()     --创建一个HUD
 --setScreenScale(1280,720) --这里必须是 竖向放置分辨率
 
 -- 模拟器分辨率1280x720
@@ -120,6 +121,17 @@ if ServerTypeGlo == 0 then
 		{x=500,y=231,color=0xe7eff7,offset=0x101010}
 		
 	} 
+	
+	--主线是否战斗标识
+	PassFightTable = {
+	
+		Anchor="Middle",MainPoint={x=781,y=81},
+		Area={1129,120,1205,154},
+		{x=1161,y=133,color=0x931b60,offset=0x202020},
+		{x=1180,y=143,color=0x931454,offset=0x202020},
+		{x=1181,y=133,color=0x8a1454,offset=0x252525}
+	
+	}
 	Destruction_point = {845,587}
 	Close_point = {639,585}	
 
@@ -201,12 +213,20 @@ elseif ServerTypeGlo == 2 then  --台服
 end
 
 
+--===============================================功能测试区域============================================
+
+
+
+--=====================================================END==============================================
+
+
 --大功能选择
 if main_func_glo == 0 then   --自动故事模式
 	Tools.GetSingleHud("刷剧情模式开启")
 	local Helper_os = true
 	local Room_os = true
 	FreeTypeFuncGlo = 2 --切换为故事模式开头
+
 	for i=1,edit1_glo,1 do
 		mSleep(math.random(1000,3000))
 		do_ret = invoking.Game_Start(Room_os,Helper_os,false,true)
@@ -443,6 +463,9 @@ if main_func_glo == 12 then
 	end
 
 end
+
+
+
 --#############################END########################################
 
 
