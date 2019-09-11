@@ -35,6 +35,20 @@ EventOSPoint = {819,663}
 
 --AP补充检测点
 APRechargePoint = {58,23}
+--连续作战特征标
+GoToFightTable = {
+	Anchor="Middle",MainPoint={x=37,y=45},
+	Area={484,365,767,600},
+	{x=512,y=381,color=0xffffff,offset=0x202020},
+	{x=520,y=399,color=0xffffff,offset=0x202020},
+	{x=546,y=385,color=0xffffff,offset=0x202020},
+	{x=529,y=396,color=0xffffff,offset=0x202020},
+	{x=512,y=420,color=0xffffff,offset=0x202020},
+	{x=519,y=435,color=0xffffff,offset=0x202020},
+	{x=546,y=424,color=0xffffff,offset=0x202020},
+	{x=529,y=426,color=0xffffff,offset=0x202020},
+	{x=750,y=564,color=0xd5d5d6,offset=0x202020}
+}
 --AP补充特征表
 APRechargeTable = {
 
@@ -99,12 +113,28 @@ Main_Page_table =
 CheckFriendsTable = {
 	
 	Anchor="Middle",MainPoint={x=37,y=45},
-	Area={0, 0, 1279, 719},
-	{x=342,y=76,color=0x025ca7,offset=0x101010},
-	{x=476,y=366,color=0xdcecf5,offset=0x101010},
-	{x=851,y=612,color=0xd5d5d5,offset=0x101010}
+	Area={325, 65, 462, 139},
+	{  x=342,  y=  76, color=0x025ca7,offset=0x202020},
+	{  x=355,  y=  98, color=0x123456,offset=0x202020},
+	{  x=373,  y=  98, color=0x0182fc,offset=0x202020},
+	{  x=413,  y=  96, color=0x5c5c65,offset=0x202020},
+	{ x= 413,  y=  90, color=0xffffff,offset=0x202020},
+	{ x= 419,  y=  88, color=0x6c6c74,offset=0x202020},
+	{ x= 426, y=   84, color=0xfcfcfc,offset=0x202020},
+	{ x= 436,  y=  89, color=0xffffff,offset=0x202020},
+	{ x= 439,  y=  97, color=0x5b5b63,offset=0x202020},
 
 }
+
+CheckFriendsBinArea = {418,94,432,105}
+CheckFriendsBinTable = {
+	
+	1,1,1,0,0,0,0,1,0,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,
+	0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,0,0,0,0,
+	0,0,0,1,1,1,0,0,0,1,1,1,0,0,0
+	
+	}
 
 --不申请好友按钮
 RefusedFriendPoint = {329,619}
@@ -254,7 +284,22 @@ Target_Number_Rect = {
 
 }
 
+--角色二值化矩形数据
+CahrBinArea = {
+	
+	one= {196,700,199,703},
+	two= {511,701,514,704},
+	three= {830,702,833,705},
+	
+	}
+NewAreaOne = {}
+NewAreaTwo = {}
+NewAreaThree = {}
+--角色特征二值化数据组
 
+CharOneBinTable={}
+CharTwoBinTable={}
+CharThreeBinTable={}
 
 
 --主力助战识别位置
@@ -321,10 +366,12 @@ NewBattle_Over_Table = {
 NewBattle_Over_Table2 = {
 
 	Anchor="Middle",MainPoint={x=638,y=346},
-	Area={272,522,342,592},
-	{x=304,y=549,color=0x82dcfd,offset=0x202020},
-	{x=309,y=562,color=0x1b3a85,offset=0x202020},
-	{x=314,y=545,color=0x428edc,offset=0x202020}
+	Area={1135,655,1176,703},
+	{x=1152,y=669,color=0x2b3262,offset=0x202020},
+	{x=1147,y=681,color=0x101125,offset=0x202020},
+	{x=1154,y=689,color=0x2a3165,offset=0x202020},
+	{x=1162,y=679,color=0x14142d,offset=0x202020},
+	{x=1154,y=679,color=0xbac0ca,offset=0x202020}
 
 }
 
@@ -399,18 +446,22 @@ formation_confirm_table =
 	 
 	Anchor="Middle",MainPoint={x=781,y=81},
 	Area={0,0,1280,720},
-	{x=1233,y=117,color=0xeaeaea,offset=0x101010},
-	{x=407,y=634,color=0x131728,offset=0x101010},
-	{x=1236,y=651,color=0xf6f6f6,offset=0x101010}
+	{x=1233,y=117,color=0xeaeaea,offset=0x303030},
+	{x=407,y=634,color=0x131728,offset=0x303030},
+	{x=1236,y=651,color=0xf6f6f6,offset=0x303030}
 
 } 
 
-
+--助战基准识别点
+MultInterfaceCheckPoint={1014,383}
 
 
 
 --默认助战选择148,269
 Helper_Site_default = {148,269}
+Helper_Site_default2 = {  127,  478}
+Helper_Site_default3 = {130,  655}
+
 --英灵职介选择
 Helper_profession_type = {all = {94,127},saber = {163,127},archer={223,125},lancer={292,125},rider={363,128},
 caster={431,124},assassin={496,127},berserker={565,126},extra={633,127}}
@@ -964,7 +1015,7 @@ BB =
 	{x=134,y=340,color=0xbc605b,offset=0x151515},
 	{x=152,y=376,color=0xfef78c,offset=0x151515}
 },
-术师匠 =  
+斯卡蒂 =  
 {
 	Anchor="Middle",MainPoint={x=640,y=360},
 	Area={32,173,221,719},
@@ -1030,7 +1081,7 @@ Gift_name_table = {
 	{x=143,y=351,color=0xfcb146,offset=0x101010}
 } ,
 
-达芬奇 =  
+蒙娜丽莎 =  
  
 {
 	Anchor="Middle",MainPoint={x=640,y=360},
@@ -1574,6 +1625,88 @@ Gift_name_table = {
 	{x=196,y=333,color=0x1671c4,offset=0x202020}
 },
 
+
+--========================三期泳装===========================
+沙滩上的英雄= {
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+	{x=67,y=333,color=0xf5cc82,offset=0x151515},
+	{x=113,y=320,color=0xaf7d23,offset=0x151515},
+	{x=131,y=341,color=0xdcab71,offset=0x151515},
+	{x=149,y=342,color=0xf2c98f,offset=0x151515},
+	{x=176,y=341,color=0xf9c875,offset=0x151515},
+	{x=195,y=326,color=0xe5c479,offset=0x151515}
+},
+
+疾风怒涛 = {
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+	{x=57,y=345,color=0xffffff,offset=0x151515},
+	{x=71,y=327,color=0x1a2396,offset=0x151515},
+	{x=102,y=331,color=0xb56b76,offset=0x151515},
+	{x=139,y=337,color=0xffe9d8,offset=0x151515},
+	{x=177,y=341,color=0x1c87fa,offset=0x151515},
+	{x=165,y=315,color=0xf69383,offset=0x151515}
+},
+
+翠绿上的摇曳 = {
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+	{x=56,y=323,color=0x992e4f,offset=0x151515},
+	{x=71,y=342,color=0xffe9d8,offset=0x151515},
+	{x=86,y=326,color=0xcc9a9a,offset=0x151515},
+	{x=95,y=323,color=0xad836c,offset=0x151515},
+	{x=123,y=326,color=0x1671c4,offset=0x151515},
+	{x=161,y=334,color=0xf9f9f9,offset=0x151515},
+	{x=183,y=328,color=0xf37780,offset=0x151515}
+
+},
+晚霞中的即兴演奏 = {
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+	{x=69,y=342,color=0x686868,offset=0x151515},
+	{x=87,y=328,color=0x995757,offset=0x151515},
+	{x=115,y=327,color=0xb73e51,offset=0x151515},
+	{x=134,y=334,color=0x67544d,offset=0x151515},
+	{x=138,y=317,color=0xb73b68,offset=0x151515},
+	{x=171,y=348,color=0xfddcb3,offset=0x151515},
+	{x=198,y=324,color=0xb73b6d,offset=0x151515}
+
+
+},
+奋笔疾书 = {
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+	{x=61,y=327,color=0x0a0a12,offset=0x151515},
+	{x=102,y=317,color=0x375082,offset=0x151515},
+	{x=118,y=319,color=0x3769a3,offset=0x151515},
+	{x=138,y=316,color=0x4c7dbe,offset=0x151515},
+	{x=166,y=321,color=0xd987a0,offset=0x151515},
+	{x=180,y=335,color=0xd987a0,offset=0x151515},
+	{x=198,y=314,color=0xdbaab0,offset=0x151515}
+
+
+},
+
+彻夜狂欢 = {
+	Anchor="Middle",MainPoint={x=640,y=360},
+	Area={32,173,221,719},
+
+	{x=64,y=319,color=0x997899,offset=0x151515},
+	{x=88,y=324,color=0x698292,offset=0x151515},
+	{x=60,y=351,color=0x798292,offset=0x151515},
+	{x=68,y=351,color=0x865c96,offset=0x151515},
+	{x=128,y=328,color=0x271658,offset=0x151515},
+	{x=169,y=315,color=0x964c75,offset=0x151515},
+	{x=180,y=339,color=0x964c75,offset=0x151515}
+
+},
+
+
+
+
+
+--===========================================================
 
 --============================END===========================
 

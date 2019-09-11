@@ -51,6 +51,26 @@ function lowfunction.Main_Page_confirm()
 	
 end
 
+--连续作战界面检测
+function lowfunction.GoToFightPageConfirm()
+	Tools.mSleep_level(1000,level)
+	local ret = Tools.Single_FindColor(true,GoToFightTable)
+
+
+
+	if ret == true then
+		result = true
+		sysLog("【连续作战界面】")
+	else
+		result = false
+		sysLog("【未获取连续作战界面】")
+		--未获取主界面就点上面的无痛点969,19
+		
+	end
+	return result 
+	
+end
+
 
 
 -- ###测试
@@ -81,7 +101,7 @@ function lowfunction.Skill_comfirm(Skill_No,Skill_colors)
 		sysLog(color.."=="..Skill_colors[Skill_No])
 		--前置检测技能参数是否有误
 		
-		if math.abs(color - Skill_colors[Skill_No]) <= 131586 and color ~=0 and  Skill_colors[Skill_No]~=0 then -- 如果两个颜色相同说明可以使用
+		if math.abs(color - Skill_colors[Skill_No]) <= 197379 and color ~=0 and  Skill_colors[Skill_No]~=0 then -- 如果两个颜色相同说明可以使用
 			sysLog("【技能可使用】")
 			ret = 1
 		
@@ -115,14 +135,14 @@ function lowfunction.Skill_Do(Skill_No,Skill_Type,Skill_colors)
 	--分开算两个的cd
 	
 	if Skill_No < 10 then 
-		
-		normal_cd = lowfunction.Skill_comfirm(Skill_No,Skill_colors)--检查普通技能的cd
-		if normal_cd == 1 then
+		--normal_cd = lowfunction.Skill_comfirm(Skill_No,Skill_colors)--检查普通技能的cd
+		if Normal_Skill_OS[Skill_No] == 1 then
 			Tools.mSleep_level(200,level)
 			Tools.Source_Single_Click(Skill_Site[Skill_No][1],Skill_Site[Skill_No][2])
 			--Tools.mSleep_level(200,level)
 			--Tools.Source_Single_Click(SkillComfirmPoint[1],SkillComfirmPoint[2])--技能确认SkillComfirmPoint
 			lowfunction.auto_skill(Skill_Type)
+			Normal_Skill_OS[Skill_No] = 0 
 		end
 	end
 	
@@ -491,60 +511,7 @@ end
 -- 检测战斗结束
 -- 获取到战斗结束 点击屏幕 两次 点击下一步 1124,685 v然后等待获取主界面
 --战斗结束也需要加固
-function lowfunction.Battle_Over()
-	Tools.mSleep_level(1100,level)
-	local ret = Tools.Single_FindColor(true,Battle_Over_table)
-	--local ret2 = Tools.Single_FindColor(Battle_Over_Table)
-	--Battle_Over_Point 四个点都小于30
-	local Battle_flag = 0
-	for Battle_Over = 1,4,1 do
-		RGBTable = Tools.Single_ColorRGB(false,Battle_Over_Flag[Battle_Over][1],Battle_Over_Flag[Battle_Over][2])
-		if RGBTable.r < 50 and RGBTable.g < 50 and RGBTable.b < 50 then
-			Battle_flag = Battle_flag + 1
-		end
-	end
-	
-	
-	
-	if ret == true and Battle_flag == 4 then
-		result = 1
-		sysLog("【战斗结束】")
-		Tools.mSleep_level(2000,level)
-		Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
-		Tools.mSleep_level(2000,level)
-		Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
-		Tools.mSleep_level(1500,level)
-		Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
-		Tools.mSleep_level(1500,level)
-		Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
-		Tools.mSleep_level(1500,level)
-		Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
-		while true do
-			--持续检测下一步按钮
-			Tools.mSleep_level(1000,level)
-			next_ret = Tools.Single_FindColor(true,Battle_Over_next_table)
-			--固定点点击 1121,680 X3 这里找下一步的特征码算了
-			if next_ret == true then
-				Tools.mSleep_level(1500,level)
-				Tools.Source_Single_Click(Battle_Over_Point[1],Battle_Over_Point[2])
-			else
-			
-				break
-			end
-		
-		end
-		
-		
-		
-	else
-		result = 0
-		sysLog("【继续战斗】")
-		--如果继续战斗的话那么一直点无用界面 UselessPoint
-		Tools.mSleep_level(1500,level)
-		Tools.Source_Single_Click(UselessPoint[1],UselessPoint[2])
-	end
-	return result 
-end
+
 
 
 function lowfunction.NewBattleOver()
@@ -560,7 +527,7 @@ function lowfunction.NewBattleOver()
 			Battle_flag = Battle_flag + 1
 		end
 	end
-	
+	sysLog("ret:"..tostring(ret).."ret2:"..tostring(ret2).."Battle_flag:"..tostring(Battle_flag))
 	
 	if Battle_flag >=3 and ret == true and ret2 == true then
 		sysLog("【战斗结束】")
@@ -778,12 +745,10 @@ function lowfunction.RefreshSkillCD(char_site)
 	
 	if char_site == 1 then --左从者
 		for i=1,3,1 do
-			Tools.mSleep_level(50,level)
-			color = Tools.Single_ColorStr(true,Skill_Site[i][1],Skill_Site[i][2])
 			--table.insert(Skill_Attribute,color)
 			--替换到总表里 Skill_colors
-			sysLog("刷新技能"..color.."替换掉"..Skill_colors[i])
-			Skill_colors[i] = color
+			
+			Normal_Skill_OS[i] = 1
 			
 		end
 			
@@ -792,16 +757,13 @@ function lowfunction.RefreshSkillCD(char_site)
 	if char_site == 2 then --中从者
 		for i=4,6,1 do
 			
-			color = Tools.Single_ColorStr(true,Skill_Site[i][1],Skill_Site[i][2])
-			Skill_colors[i] = color
+			Normal_Skill_OS[i] = 1
 		end
 	end
 	
 	if char_site == 3 then --右从者
 		for i=7,9,1 do
-			
-			color = Tools.Single_ColorStr(true,Skill_Site[i][1],Skill_Site[i][2])
-			Skill_colors[i] = color
+			Normal_Skill_OS[i] = 1
 		end
 	end
 	
@@ -989,8 +951,12 @@ function lowfunction.Helper_Select(Select_mode,profession_type,servent_name,Gift
 	local times = 1
 	local GiftRet = false
 	--先确定英灵职业
-	Tools.mSleep_level(1000,level)  
-	Tools.Source_Single_Click(Helper_profession_type[profession_type][1],Helper_profession_type[profession_type][2])
+	
+	
+	if Helper_mode_func_glo ~= 0 or Helper_mode_func_glo ~= 3 or Helper_mode_func_glo ~= 4 then
+		Tools.mSleep_level(1000,level)  
+		Tools.Source_Single_Click(Helper_profession_type[profession_type][1],Helper_profession_type[profession_type][2])
+	end
 	
 	while res == 0 do
 		--然后获取英灵特征 这里开始遍历滑条
@@ -1006,6 +972,20 @@ function lowfunction.Helper_Select(Select_mode,profession_type,servent_name,Gift
 			if MaxHelperFuncGlo == 0 then
 				Tools.mSleep_level(1000,level)
 				Tools.Source_Single_Click(Helper_Site_default[1],Helper_Site_default[2])
+				res = 1
+			
+			end
+			
+			if MaxHelperFuncGlo == 4 then
+				Tools.mSleep_level(1000,level)
+				Tools.Source_Single_Click(Helper_Site_default2[1],Helper_Site_default2[2])
+				res = 1
+			
+			end
+			
+			if MaxHelperFuncGlo == 5 then
+				Tools.mSleep_level(1000,level)
+				Tools.Source_Single_Click(Helper_Site_default3[1],Helper_Site_default3[2])
 				res = 1
 			
 			end
@@ -1040,6 +1020,19 @@ function lowfunction.Helper_Select(Select_mode,profession_type,servent_name,Gift
 					Tools.Source_Single_Click(Helper_Site_default[1],Helper_Site_default[2])
 					res = 1
 				end
+				
+				if Select_mode == 4 then
+					Tools.mSleep_level(200,level)
+					Tools.Source_Single_Click(Helper_Site_default2[1],Helper_Site_default2[2])
+					res = 1
+				end
+				
+				if Select_mode == 5 then
+					Tools.mSleep_level(200,level)
+					Tools.Source_Single_Click(Helper_Site_default3[1],Helper_Site_default3[2])
+					res = 1
+				end
+				
 				if Select_mode == 1 then
 					if Click_servent_xy ~= false then
 						--已确定英灵 点击确定
@@ -1088,6 +1081,18 @@ function lowfunction.Helper_Select(Select_mode,profession_type,servent_name,Gift
 				if Select_mode == 0  then
 					Tools.mSleep_level(200,level)
 					Tools.Source_Single_Click(Helper_Site_default[1],Helper_Site_default[2])
+					res = 1
+				end
+				
+				if Select_mode == 4 then
+					Tools.mSleep_level(200,level)
+					Tools.Source_Single_Click(Helper_Site_default2[1],Helper_Site_default2[2])
+					res = 1
+				end
+				
+				if Select_mode == 5 then
+					Tools.mSleep_level(200,level)
+					Tools.Source_Single_Click(Helper_Site_default3[1],Helper_Site_default3[2])
 					res = 1
 				end
 				if Select_mode == 1  then
@@ -1198,7 +1203,9 @@ end
 
 -- 换人礼装专属操作 换人之后需要清理技能cd
 function lowfunction.switch_os(start,endl)
-
+	local TempAreaOne = NewAreaOne
+	local TempAreaTwo = NewAreaTwo
+	local TempAreaThree = NewAreaThree
 	if Master_switch_func_glo == 0 and sw_refresh_flag == 1 then --是
 		--将要清空该处位置的从者技能
 		
@@ -1230,6 +1237,17 @@ function lowfunction.switch_os(start,endl)
 		
 	end
 	if  sw_refresh_flag == 1 and SwitchFlag == 1 then
+	
+		if Master_switch_start_glo == 1 then
+			CharOneBinTable = {}
+			Tools.GetAreaToBin(TempAreaOne,CharOneBinTable)
+		elseif Master_switch_start_glo == 2 then
+			CharTwoBinTable = {}
+			Tools.GetAreaToBin(TempAreaTwo,CharTwoBinTable)
+		else
+			CharThreeBinTable = {}
+			Tools.GetAreaToBin(TempAreaThree,CharThreeBinTable)	
+		end
 		lowfunction.RefreshSkillCD(Master_switch_start_glo)
 		
 		SwitchFlag = 0
@@ -1298,7 +1316,7 @@ function lowfunction.Helper_Char_database(char_UI_no)
 	local char_database = {'saber|呆毛王','saber|小莫','saber|大王','archer|闪闪','archer|水呆毛','caster|孔明','caster|梅林','assassin|杀阶老太婆','assassin|杰克','lancer|枪阶老太婆','lancer|迦尔纳','rider|拉二','rider|船长',
 		'berserker|奶光','berserker|黑狗','extra|黑贞','lancer|贞德lily','archer|弓凛','rider|黑骑呆','berserker|狂长江','assassin|艳后','caster|水尼禄','rider|R小莫','caster|妖僧','berserker|狂金时','lancer|小恩','caster|C狐','extra|北斋',
 		'berserker|BX毛','saber|武藏','saber|冲田总司','saber|花嫁尼禄','archer|阿周那','archer|特斯拉','archer|弓凛','lancer|白枪呆','lancer|枪凛','assassin|山中老人',
-		'assassin|酒吞','extra|BB','extra|天草','extra|伯爵','extra|阿比','caster|术尼托','lancer|枪狐','caster|术师匠','lancer|枪奶光','archer|大英雄'}
+		'assassin|酒吞','extra|BB','extra|天草','extra|伯爵','extra|阿比','caster|术尼托','lancer|枪狐','caster|斯卡蒂','lancer|枪奶光','archer|大英雄'}
 	local ret = Tools.Split(char_database[char_UI_no+1], '|')  
 	return ret[1],ret[2]
 end
@@ -1307,7 +1325,7 @@ end
 --助战礼装数据库 代入编号 返回 礼装名
 --'纯洁绽放','阿尔托莉雅之星','巫女狐','化为红莲的影之国','正射必中'
 function lowfunction.Helper_Gift_database(gift_UI_no)
-	local gift_database = {'迦勒底午餐时光','圣夜晚餐','万华镜','达芬奇','宇宙棱镜','二零三零','天堂之孔','虚数魔术','黑杯','社交界之花','春风游步道','第六天魔王','日轮之城','壬生狼','帝都圣杯战争','坂本侦探事务所','研磨锐牙之暗剑','海滨奢华','白色航游','砂糖假期','小小夏日','迦勒底沙滩排球','Kingjokerjack','盛夏一刻','潜入湛蓝','贝娜丽莎','迦勒底下午茶时光','夏日阎魔亭','紫之眼','迎宾兔女郎','甜蜜之日','法老巧克力','第一次的情人节','魔女厨房'}
+	local gift_database = {'迦勒底午餐时光','圣夜晚餐','万华镜','蒙娜丽莎','宇宙棱镜','二零三零','天堂之孔','虚数魔术','黑杯','疾风怒涛','沙滩上的英雄','翠绿上的摇曳','晚霞中的即兴演奏','奋笔疾书','彻夜狂欢','三重结界','夏日未来视','循环','斩首兔女郎','砂糖假期','小小夏日','迦勒底沙滩排球','Kingjokerjack','盛夏一刻','潜入湛蓝','贝娜丽莎','迦勒底下午茶时光','夏日阎魔亭','紫之眼','迎宾兔女郎','甜蜜之日','法老巧克力','第一次的情人节','魔女厨房'}
 	--迦勒底午餐时光 
 	local ret = gift_database[gift_UI_no+1]
 	
@@ -2640,12 +2658,12 @@ function lowfunction.GetCurrentCharAttribute()
 					sysLog('角色发生改变~重新采集技能数据')
 					CharacterTable[CurChar] = color
 					for i=CurChar*3-2,CurChar*3,1 do
-						Tools.mSleep_level(50,level)
-						color = Tools.Single_ColorStr(false,Skill_Site[i][1],Skill_Site[i][2])
+						--Tools.mSleep_level(50,level)
+						--color = Tools.Single_ColorStr(false,Skill_Site[i][1],Skill_Site[i][2])
 						--table.insert(Skill_Attribute,color)
 						--替换到总表里 Skill_colors
-						sysLog("刷新技能"..color.."替换掉"..Skill_colors[i])
-						Skill_colors[i] = color
+						sysLog("刷新技能")
+						Normal_Skill_OS[i] = 1
 					end
 					--将新的特征码存储到角色特征中
 				else
@@ -2671,12 +2689,8 @@ function lowfunction.GetCurrentCharAttribute()
 				sysLog('角色发生改变~重新采集技能数据')
 				CharacterTable[CurChar] = color
 				for i=CurChar*3-2,CurChar*3,1 do
-					Tools.mSleep_level(50,level)
-					color = Tools.Single_ColorStr(false,Skill_Site[i][1],Skill_Site[i][2])
-					--table.insert(Skill_Attribute,color)
-					--替换到总表里 Skill_colors
-					--sysLog("刷新技能"..color.."替换掉"..Skill_colors[i])
-					Skill_colors[i] = color
+					sysLog("刷新技能")
+					Normal_Skill_OS[i] = 1
 				end
 				--将新的特征码存储到角色特征中
 			else
@@ -2690,6 +2704,64 @@ function lowfunction.GetCurrentCharAttribute()
 	end
 
 			
+end
+
+
+--重构角色特征获取
+function lowfunction.NewGetCurrentCharAttribute()
+	local CurrentOneChar = {}
+	local CurrentTwoChar = {}
+	local CurrentThreeChar = {}
+	local TempAreaOne = NewAreaOne
+	local TempAreaTwo = NewAreaTwo
+	local TempAreaThree = NewAreaThree
+	--根据实际分辨率 对area进行扩充
+	
+	
+
+	--dialog("NewAreaOne:"..tostring(NewAreaOne[1])..","..tostring(NewAreaOne[2])..","..tostring(NewAreaOne[3])..","..tostring(NewAreaOne[4]))
+	Tools.GetAreaToBin(TempAreaOne,CurrentOneChar)
+	Tools.GetAreaToBin(TempAreaTwo,CurrentTwoChar)
+	Tools.GetAreaToBin(TempAreaThree,CurrentThreeChar)
+	--一个相似度比对函数
+	SimRet1 = Tools.SimilarityFunc(CurrentOneChar,CharOneBinTable)
+	SimRet2 = Tools.SimilarityFunc(CurrentTwoChar,CharTwoBinTable)
+	SimRet3 = Tools.SimilarityFunc(CurrentThreeChar,CharThreeBinTable)
+	
+	SimTotal = {SimRet1,SimRet2,SimRet3}
+	for k,v in ipairs(SimTotal) do
+		sysLog("当前相似度："..tostring(v))
+		if v < 0.88 then
+			sysLog('角色发生改变~重新采集技能数据')
+			--重采集该角色数据 并刷新技能
+			if k == 1 then
+				--先清空再重新复制
+				CharOneBinTable = {}
+				Tools.GetAreaToBin(TempAreaOne,CharOneBinTable)
+			elseif k == 2 then
+				CharTwoBinTable = {}
+				Tools.GetAreaToBin(TempAreaTwo,CharTwoBinTable)
+			
+			else
+				CharThreeBinTable= {}
+				Tools.GetAreaToBin(TempAreaThree,CharThreeBinTable)
+			
+			end
+			
+			for i=k*3-2,k*3,1 do
+				
+				sysLog("刷新技能")
+				Normal_Skill_OS[i] = 1
+				
+			end
+		
+		else
+			
+			sysLog('角色未发生改变')
+		end
+		
+	end
+	
 end
 
 --友情池抽取
@@ -2753,21 +2825,17 @@ end
 
 
 --识别是否需要添加好友
+
 function lowfunction.CheckFriend()
-	--CheckFriendsTable
 	
-	Ret = lowfunction.MultInterfaceFriendAndMain()
-     
-    
-	if Ret == 2 then
+	ContorlRoomRet = Tools.Single_FindColor(true,CheckFriendsTable,1)
+	if ContorlRoomRet == false then
 		sysLog("【未进入申请好友界面】")
 		return false
 	else
 		sysLog("【进入申请好友界面】")
 		return true
 	end
-	
-
 end
 
 
@@ -2931,7 +2999,7 @@ end
 --目前只加入两个画面的同步判断 ap补充和助战界面
 function lowfunction.MultInterfaceCheck()
 	--两个界面的基准色
-	APRechargeBaseColorStr = 15724535
+	APRechargeBaseColorStr = 15724535  
 	--APRechargeBaseColorStr2 = 9537397
 	if ServerTypeGlo == 2 then
 		HelperBaseColorStr = 1982287
@@ -2942,10 +3010,10 @@ function lowfunction.MultInterfaceCheck()
 	end
 	HelperBaseColorStr2 = 1916494
 	HelperBaseColorStr3 = 12901605
-	MultInterfaceCheckPoint={1014,383}
-
-
 	
+
+
+	--15461150
 	BaseColorStr = Tools.Single_ColorStr(true,MultInterfaceCheckPoint[1],MultInterfaceCheckPoint[2])
 	
 	--进行比对

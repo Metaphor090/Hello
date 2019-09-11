@@ -157,7 +157,7 @@ function invoking.Game_Start(Room_os,Helper_os,EventOS,StoryOS)
 		else
 			formationFlag = formationFlag + 1
 			if formationFlag >= 3 then
-			
+				break
 			end
 		end
 	end
@@ -275,8 +275,12 @@ function invoking.FightEX(StoryOS,SkipMode)
 	--开启计分板
 	BattleTimerID = createHUD()  
 	Tools.ShowScoreCard(BattleTimerID)
-	Skill_colors = lowfunction.GetCurrentSkillAttribute()
-	
+	--Skill_colors = lowfunction.GetCurrentSkillAttribute()
+	--初始化角色
+	--初始化角色特征二值化
+	Tools.GetAreaToBin(CahrBinArea.one,CharOneBinTable)
+	Tools.GetAreaToBin(CahrBinArea.two,CharTwoBinTable)
+	Tools.GetAreaToBin(CahrBinArea.three,CharThreeBinTable)
 	while(fight_os) do
 		Tools.mSleep_level(1000,level)
 		Baoju_do_table = {}
@@ -824,13 +828,20 @@ function invoking.Check_Battle_Over(SkipMode)
 						CheckFriendPassFlag = 0
 						if SkipMode == true then
 							--连续作战模式需要点的
-							Tools.mSleep_level(2000,level)
+							
+							Tools.mSleep_level(3000,level)
+							--检测是否是连续作战界面
+						
 							if  CurrentDoTime < edit1_glo then
 								Tools.Source_Single_Click(GoonFight[1],GoonFight[2])
+								
 							else
 								Tools.Source_Single_Click(CancelFight[1],CancelFight[2])
 								return 1
 							end
+								
+						
+							
 							Tools.mSleep_level(2000,level)
 							CheckRet = lowfunction.MultInterfaceCheck()
 							if CheckRet == "APR" then

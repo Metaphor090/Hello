@@ -69,6 +69,11 @@ end
 lowfunction.Resolution_profile(true_width,true_height)
 
 
+--缩放area
+
+NewAreaOne = All_Resolution.缩放Area(CahrBinArea.one)
+NewAreaTwo = All_Resolution.缩放Area(CahrBinArea.two)
+NewAreaThree = All_Resolution.缩放Area(CahrBinArea.three)
 
 
 

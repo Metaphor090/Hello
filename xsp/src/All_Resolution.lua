@@ -157,6 +157,18 @@ function All_Resolution.DevToProduction(Data_Table)
 end
 
 function All_Resolution.缩放Area(Area)  --缩放Area
+	DevResolutionX = Dev_Env.Width-Dev_Env.Left-Dev_Env.Right
+	DevResolutionY = Dev_Env.Height-Dev_Env.Top-Dev_Env.Sub
+	--2.获取到正确的实体机分辨率
+	ActResolutionX = Act_Env.Width-Act_Env.Left-Act_Env.Right
+	ActResolutionY = Act_Env.Height-Act_Env.Top-Act_Env.Sub
+	
+	--if Act_Env.Left ~= 0 then
+	--	AppurtenantScaleMode=Act_Env.Height/Dev_Env.Height  --开发转实际缩放比例
+	--else
+	--	AppurtenantScaleMode=Act_Env.Width/Dev_Env.Width  --开发转实际缩放比例
+	--end
+	AppurtenantScaleMode = ActResolutionX/DevResolutionX
 	Area[1]=(Area[1]-Dev_Env.Left)*AppurtenantScaleMode+Act_Env.Left
 	Area[3]=(Area[3]-Dev_Env.Left)*AppurtenantScaleMode+Act_Env.Left
 	Area[2]=(Area[2]-Dev_Env.Top)*AppurtenantScaleMode+Act_Env.Top

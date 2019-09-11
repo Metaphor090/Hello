@@ -109,6 +109,51 @@ function Tools.KeepSwitch()
 	keepScreen(false)
 end
 
+--矩形图像二值化并返回二值化数据
+function Tools.GetAreaToBin(NormalArea,DataTable)
+	local pots = 0
+	
+	for i=NormalArea[2],NormalArea[4],1 do
+		for k=NormalArea[1],NormalArea[3],1 do
+			--nLog(tostring(k)..","..tostring(i))
+			local r, g, b=getColorRGB(k, i)
+			--nLog(r..","..g..","..b)
+			--dialog(r..","..g..","..b)
+			if r >= 130 and g >= 130 and b >= 130 then
+				pots = 1
+			else
+				pots = 0
+			end
+			table.insert(DataTable,pots)
+		end
+	end
+	
+
+
+end
+
+--二值化相似度比较
+function Tools.SimilarityFunc(CurrentOneChar,CharOneBinTable)
+	--首先这两个表长度相同
+	--逐一比较即可
+	local SimPoint = 0
+	local SimPix = 0
+	for i=1,#CurrentOneChar,1 do
+		if CurrentOneChar[i] == CharOneBinTable[i] then
+			--记录为相似点
+			SimPoint = SimPoint + 1
+		else
+			--记录为不同点
+		end
+	
+	end
+	--最后统计一下比例
+	
+	SimPix = SimPoint/#CurrentOneChar
+	sysLog(SimPix)
+	return SimPix
+end
+
 
 --单点获取该点的RGB值
 function Tools.Single_ColorRGB(Refresh,x_site,y_site)

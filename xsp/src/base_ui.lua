@@ -165,12 +165,12 @@ function GetUI()
 	--助战选择
 	mypage4:addLabel({"助战选择"})
 	mypage4:nextLine()
-	mypage4:addRadioGroup({id="助战选择",list="呆毛王,小莫,大王,闪闪,水呆毛,孔明,梅林,杀斯卡哈,杰克,枪斯卡哈,迦尔纳,拉二,船长,奶光,黑狗,黑贞,贞德lily,弓凛,黑骑呆,狂长江,艳后,水尼禄,R小莫,妖僧,狂金时,小恩,C狐,北斋,BX毛,武藏,冲田总司,花嫁尼禄,阿周那,特斯拉,弓凛,白枪呆,枪凛,山中老人,酒吞,BB,天草,伯爵,阿比,术尼托,枪狐,术师匠,枪奶光,大英雄",w=70,h=85,size=20,color="65,105,225",select = "0"})
+	mypage4:addRadioGroup({id="助战选择",list="呆毛王,小莫,大王,闪闪,水呆毛,孔明,梅林,杀斯卡哈,杰克,枪斯卡哈,迦尔纳,拉二,船长,奶光,黑狗,黑贞,贞德lily,弓凛,黑骑呆,狂长江,艳后,水尼禄,R小莫,妖僧,狂金时,小恩,C狐,北斋,BX毛,武藏,冲田总司,花嫁尼禄,阿周那,特斯拉,弓凛,白枪呆,枪凛,山中老人,酒吞,BB,天草,伯爵,阿比,术尼托,枪狐,斯卡蒂,枪奶光,大英雄",w=70,h=85,size=20,color="65,105,225",select = "0"})
 	mypage4:nextLine()
 	--助战礼装选择
 	mypage4:addLabel({"助战礼装选择"})
 	mypage4:nextLine()
-	mypage4:addRadioGroup({id="助战礼装选择",list="迦勒底午餐时光,圣夜晚餐,万华镜,达芬奇,宇宙棱镜,二零三零,天堂之孔,虚数魔术,黑杯,社交界之花,春风游步道,第六天魔王,日轮之城,壬生狼,帝都圣杯战争,坂本侦探事务所,研磨锐牙之暗剑,海滨奢华,白色航游,砂糖假期,小小夏日,迦勒底沙滩排球,Kingjokerjack,盛夏一刻,潜入湛蓝,贝娜丽莎,迦勒底下午茶时光,夏日阎魔亭,紫之眼,迎宾兔女郎,甜蜜之日,法老巧克力,第一次的情人节,魔女厨房",w=70,h=90,size=20,color="65,105,225",select = "0"})
+	mypage4:addRadioGroup({id="助战礼装选择",list="迦勒底午餐时光,圣夜晚餐,万华镜,蒙娜丽莎,宇宙棱镜,二零三零,天堂之孔,虚数魔术,黑杯,疾风怒涛,沙滩上的英雄,翠绿上的摇曳,晚霞中的即兴演奏,奋笔疾书,彻夜狂欢,三重结界,夏日未来视,循环,斩首兔女郎,砂糖假期,小小夏日,迦勒底沙滩排球,Kingjokerjack,盛夏一刻,潜入湛蓝,贝娜丽莎,迦勒底下午茶时光,夏日阎魔亭,紫之眼,迎宾兔女郎,甜蜜之日,法老巧克力,第一次的情人节,魔女厨房",w=70,h=90,size=20,color="65,105,225",select = "0"})
 	mypage4:nextLine()
 	--助战礼装是否满破
 	mypage4:addLabel({"是否选择满破礼装"})
@@ -181,13 +181,13 @@ function GetUI()
 	--助战方式设置
 	mypage4:addLabel({"助战方式设置"})
 	mypage4:nextLine()
-	mypage4:addComboBox({id="助战方式设置",list="随意选一个,只选英灵,只选礼装,英灵和礼装都要选",w=70,h=10,size=20,color="65,105,225",select = "0"})
+	mypage4:addComboBox({id="助战方式设置",list="选第一个,只选英灵,只选礼装,英灵和礼装都要选,选第二个,选第三个",w=70,h=10,size=20,color="65,105,225",select = "0"})
 	mypage4:nextLine()
 	--助战刷新超限
 	mypage4:addLabel({"助战刷新失败选项"})
 	mypage4:nextLine()
 	mypage4:addComboBox({id="助战刷新次数",list="一次,二次,三次,四次",w=23,h=10,size=20,color="65,105,225",select = "0"})
-	mypage4:addComboBox({id="助战刷新方式设置",list="随意选一个,只选英灵,只选礼装",w=23,h=10,size=20,color="65,105,225",select = "0"})
+	mypage4:addComboBox({id="助战刷新方式设置",list="选第一个,只选英灵,只选礼装,选第二个,选第三个",w=23,h=10,size=20,color="65,105,225",select = "0"})
 	mypage4:nextLine()
 	--是否开启替补释放技能
 	mypage4:addLabel({"是否开启替补释放技能"})
