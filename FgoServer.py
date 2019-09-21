@@ -153,7 +153,7 @@ def NormalConn(imei,keycode):
         #get current time
         NowTime = datetime.datetime.now()
         print((deadtime - NowTime))
-        if (deadtime - NowTime).seconds < 0:
+        if (deadtime - NowTime).days < 0:
             print("[404]not allow!")
             return 404
         else:
