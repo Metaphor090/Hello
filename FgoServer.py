@@ -124,7 +124,7 @@ def NormalConn(imei,keycode):
                     deadtime = row[4]
                 print('find so add')
                 #curtime
-                if (deadtime - datetime.datetime.now()) <= 0:
+                if (deadtime - datetime.datetime.now()).days <= 0:
 
                     BaseTime = datetime.datetime.now()
                 else:
