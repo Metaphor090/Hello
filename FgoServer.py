@@ -124,7 +124,11 @@ def NormalConn(imei,keycode):
                     deadtime = row[4]
                 print('find so add')
                 #curtime
-                BaseTime = deadtime
+                if (deadtime - datetime.datetime.now()) <= 0:
+
+                    BaseTime = datetime.datetime.now()
+                else:
+                    BaseTime = deadtime
                 RetTime = FromTimeTypeToTimeDel(BaseTime,KeyType)
                 print('Ret time:' + str(RetTime))
                 cursor.execute(AddOldUserSql,(keycode,RetTime,imei))
